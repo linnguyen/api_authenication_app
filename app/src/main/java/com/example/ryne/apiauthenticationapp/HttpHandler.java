@@ -21,9 +21,7 @@ public class HttpHandler {
     public static String makeServiceCall(){
         String response = null;
         try {
-          //  URL url = new URL("http://10.0.2.2:3000/users.json");
             URL url = new URL("http://10.0.3.2:3000/users.json");
-           // URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?lat=35&lon=139&cnt=10&mode=json&appid=be8d3e323de722ff78208a7dbb2dcd6f");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             // read the response
