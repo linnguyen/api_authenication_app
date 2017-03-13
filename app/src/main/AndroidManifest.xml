@@ -26,7 +26,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".RegisterV2"></activity>
     </application>
 
 </manifest>

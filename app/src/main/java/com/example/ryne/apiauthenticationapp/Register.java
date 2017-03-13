@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +14,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
@@ -30,7 +33,6 @@ public class Register extends AppCompatActivity {
         edEmail = (EditText) findViewById(R.id.email);
         edPassword = (EditText) findViewById(R.id.password);
     }
-
     public void sendDataToServer(View view) {
         name = edName.getText().toString();
         email = edEmail.getText().toString();
@@ -48,9 +50,10 @@ public class Register extends AppCompatActivity {
             new RegisterTask().execute(String.valueOf(jsonObject));
             //Log.d("daynuane", String.valueOf(jsonObject));
             //call to sync class
+            Log.d("dulieu", String.valueOf(jsonObject));
+            Toast.makeText(Register.this, String.valueOf(jsonObject), Toast.LENGTH_LONG).show();
         }
     }
-
     class RegisterTask extends AsyncTask<String, String, String>{
           @Override
             protected String doInBackground(String... params) {
@@ -63,6 +66,7 @@ public class Register extends AppCompatActivity {
                   URL url = new URL("http://10.0.3.2:3000/users");
                   urlConnection = (HttpURLConnection) url.openConnection();
                   urlConnection.setDoOutput(true);
+                  urlConnection.setDoInput(true);
                   //
                   urlConnection.setRequestMethod("POST");
                   urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -72,10 +76,10 @@ public class Register extends AppCompatActivity {
                   writer.write(JsonData);
                   //json data
                   writer.close();
-                  //Log.d("dayroi", "heeje");
-              } catch (IOException e) {
+                  Log.d("dayroi", "heeje");
+               } catch (IOException e) {
                   e.printStackTrace();
-              } finally {
+               } finally {
                   if (urlConnection != null){
                       urlConnection.disconnect();
                   }
@@ -89,7 +93,9 @@ public class Register extends AppCompatActivity {
               }
               return null;
             }
-    }
+      }
+
+
 
 }
 
